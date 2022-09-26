@@ -1,6 +1,7 @@
 import pandas as pd
 import openpyxl
 
+#ComputeDate 만 데이터 날짜 개수 바뀔때마다 바꿔주면됨
 def ComputeDate(string):
     if(string=="2022-07-14"): return 0
     elif(string=="2022-07-15"): return 1
@@ -75,19 +76,20 @@ for i in range(len(data)):
 
 Sheet2_ID=df2['ID'] #ID
 
-cols2=len(Sheet2_ID)
-rows2=len(df2.columns)-1
+rows2=len(Sheet2_ID)
+cols2=len(df2.columns)-1
 print(rows2)
 print(cols2)
 df_for_write_array=[[0 for j in range(cols2)] for i in range(rows2)]
 # 배열에 값을 추가하는 부분
 for i in range(len(df1)):
-    for j in range(len(df2.columns)-1):
+    for j in range(len(df2)):
         if(Sheet2_ID[j]==data[i][0]):
             index=ComputeDate(data[i][1])
+            print("j : ",j,"index : ",index)
             df_for_write_array[j][index]=data[i][2]
 
 
 #엑셀에 쓰는 부분
 df_for_write=pd.DataFrame(df_for_write_array)
-df_for_write.to_excel("inputDataResult.xlsx",sheet_name="Data",index=Sheet2_ID)
+df_for_write.to_excel("inputDataResult.xlsx",sheet_name="Data")
