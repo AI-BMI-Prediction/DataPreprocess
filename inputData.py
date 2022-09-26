@@ -1,6 +1,14 @@
 import pandas as pd
 import openpyxl
 
+'''
+data.xlsx -> inputDataResult.xlsx 로 데이터를 채워주는 모듈입니다
+data.xlsx의 Sheet1은 데이터 개수 * 3 의 형태로 만들어주시고 순서는 (ID, 날짜, Data Value) 입니다.
+data.xlsx의 Sheet2는 데이터의 날짜가 추가된다면 날짜를 더 늘려주시고 ComputeDate 함수에서 늘어난 날짜만큼 노가다로 늘려주세요
+                    ID의 개수가 늘어났다면 아무것도 하지 않으셔도 됩니다.
+'''
+
+
 #ComputeDate 만 데이터 날짜 개수 바뀔때마다 바꿔주면됨
 def ComputeDate(string):
     if(string=="2022-07-14"): return 0
@@ -78,8 +86,6 @@ Sheet2_ID=df2['ID'] #ID
 
 rows2=len(Sheet2_ID)
 cols2=len(df2.columns)-1
-print(rows2)
-print(cols2)
 df_for_write_array=[[0 for j in range(cols2)] for i in range(rows2)]
 # 배열에 값을 추가하는 부분
 for i in range(len(df1)):
