@@ -54,9 +54,9 @@ df1=pd.read_excel('data.xlsx',sheet_name='Sheet1')
 df2=pd.read_excel('data.xlsx',sheet_name='Sheet2')
 
 #행 : cols, 열 : rows 이고 2차원 배열 생성
-cols=3
-rows=len(df1)
-data=[[0 for j in range(cols)] for i in range(rows)]
+cols1=3
+rows1=len(df1)
+data=[[0 for j in range(cols1)] for i in range(rows1)]
 
 #시트 1에서 데이터 읽어오기
 Sheet1_ID=df1['ID']
@@ -67,17 +67,27 @@ for i in range(len(df1)):
     data[i][1]=Sheet1_date[i]
     data[i][2]=Sheet1_value[i]
 
+#Convert "pandas timestamp" to "str"
+for i in range(len(data)):
+    # print("type : ", type(data[i][1].strftime('%Y-%m-%d')))
+    # print("date : ", data[i][1].strftime('%Y-%m-%d'))
+    data[i][1]=data[i][1].strftime('%Y-%m-%d')
+
 Sheet2_ID=df2['ID'] #ID
-cols=len(Sheet2_ID)
-rows=len(df2)
-df_for_write_array=[[0 for j in range(cols)] for i in range(rows)]
+
+cols2=len(Sheet2_ID)
+rows2=len(df2.columns)-1
+print(rows2)
+print(cols2)
+df_for_write_array=[[0 for j in range(cols2)] for i in range(rows2)]
 # 배열에 값을 추가하는 부분
 for i in range(len(df1)):
-    for j in range(len(df2)):
+    for j in range(len(df2.columns)-1):
         if(Sheet2_ID[j]==data[i][0]):
             index=ComputeDate(data[i][1])
             df_for_write_array[j][index]=data[i][2]
 
+
 #엑셀에 쓰는 부분
 df_for_write=pd.DataFrame(df_for_write_array)
-df_for_write.to_excel("inp.xlsx",sheet_name="Sheet2")
+df_for_write.to_excel("inputDataResult.xlsx",sheet_name="Data",index=Sheet2_ID)
