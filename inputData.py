@@ -92,9 +92,24 @@ for i in range(len(df1)):
     for j in range(len(df2)):
         if(Sheet2_ID[j]==data[i][0]):
             index=ComputeDate(data[i][1])
-            print("j : ",j,"index : ",index)
+            #print("j : ",j,"index : ",index)
             df_for_write_array[j][index]=data[i][2]
 
+sum=[0 for i in range(len(df2.columns)-1)]
+# 배열에 빈 칸을 열의 평균으로 채우는 부분
+# 열의 값을 모두 더하는부분
+for i in range(len(df2.columns)-1):
+    temp=0
+    for j in range(len(df2)):
+        sum[i]+=df_for_write_array[j][i]
+# 열의 값을 평균으로 만드는 부분
+for i in range(len(sum)):
+    sum[i]=sum[i]/len(df2)
+# 배열에 평균의 값을 넣는 부분
+for i in range(len(df2.columns)-1):
+    for j in range(len(df2)):
+        if(df_for_write_array[j][i]==0):
+            df_for_write_array[j][i]=sum[i]
 
 #엑셀에 쓰는 부분
 df_for_write=pd.DataFrame(df_for_write_array)
