@@ -54,6 +54,46 @@ def ComputeDate(string):
     elif(string=="2022-08-24"): return 41
     elif(string=="2022-08-25"): return 42
     elif(string=="2022-08-26"): return 43
+    elif(string=="2022-08-27"): return 44
+    elif(string=="2022-08-28"): return 45
+    elif(string=="2022-08-29"): return 46
+    elif(string=="2022-08-30"): return 47
+    elif(string=="2022-08-31"): return 48
+    elif(string=="2022-09-01"): return 49
+    elif(string=="2022-09-02"): return 50
+    elif(string=="2022-09-03"): return 51
+    elif(string=="2022-09-04"): return 52
+    elif(string=="2022-09-05"): return 53
+    elif(string=="2022-09-06"): return 54
+    elif(string=="2022-09-07"): return 55
+    elif(string=="2022-09-08"): return 56
+    elif(string=="2022-09-09"): return 57
+    elif(string=="2022-09-10"): return 58
+    elif(string=="2022-09-11"): return 59
+    elif(string=="2022-09-12"): return 60
+    elif(string=="2022-09-13"): return 61
+    elif(string=="2022-09-14"): return 62
+    elif(string=="2022-09-15"): return 63
+    elif(string=="2022-09-16"): return 64
+    elif(string=="2022-09-17"): return 65
+    elif(string=="2022-09-18"): return 66
+    elif(string=="2022-09-19"): return 67
+    elif(string=="2022-09-20"): return 68
+    elif(string=="2022-09-21"): return 69
+    elif(string=="2022-09-22"): return 70
+    elif(string=="2022-09-23"): return 71
+    elif(string=="2022-09-24"): return 72
+    elif(string=="2022-09-25"): return 73
+    elif(string=="2022-09-26"): return 74
+    elif(string=="2022-09-27"): return 75
+    elif(string=="2022-09-28"): return 76
+    elif(string=="2022-09-29"): return 77
+    elif(string=="2022-09-30"): return 78
+    elif(string=="2022-10-01"): return 79
+    elif(string=="2022-10-02"): return 80
+    elif(string=="2022-10-03"): return 81
+    elif(string=="2022-10-04"): return 82
+    elif(string=="2022-10-05"): return 83
 
 #Sheet 1 엑셀 읽기
 df1=pd.read_excel('data2.xlsx',sheet_name='Sheet1')
@@ -69,7 +109,7 @@ data=[[0 for j in range(cols1)] for i in range(rows1)]
 #시트 1에서 데이터 읽어오기
 Sheet1_ID=df1['ID']
 Sheet1_date=df1['collect_datetime']
-Sheet1_value=df1['weight']
+Sheet1_value=df1['b']
 for i in range(len(df1)):
     data[i][0]=Sheet1_ID[i]
     data[i][1]=Sheet1_date[i]
@@ -77,7 +117,8 @@ for i in range(len(df1)):
 
 #Convert "pandas timestamp" to "str"
 for i in range(len(data)):
-    data[i][1]=data[i][1].strftime('%Y-%m-%d')
+    if(type(data[i][1])!=str):
+        data[i][1]=data[i][1].strftime('%Y-%m-%d')
 
 Sheet2_ID=df2['ID'] #ID
 
@@ -89,9 +130,9 @@ df_for_write_array=[[0 for j in range(rows2)] for i in range(cols2)]
 for i in range(len(df1)):
     for j in range(len(df2)):
         if(Sheet2_ID[j]==data[i][0]):
-            index=ComputeDate(data[i][1])
-            #print("j : ",j,"index : ",index)
+            index=ComputeDate(data[i][1][0:10])
             df_for_write_array[index][j]=data[i][2]
+
 
 sum=[0 for i in range(len(df2))]
 sum_count=[0 for i in range(len(df2))]
@@ -107,6 +148,8 @@ for i in range(len(df2)):
 
 # 열의 값을 평균으로 만드는 부분
 for i in range(len(sum)):
+    if(sum_count[i]==0):
+        sum_count[i]=1
     sum[i]=sum[i]/sum_count[i]
 
 # 배열에 평균의 값을 넣는 부분
