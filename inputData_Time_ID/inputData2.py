@@ -122,8 +122,8 @@ for i in range(len(data)):
 
 Sheet2_ID=df2['ID'] #ID
 
-cols2=len(df2.columns)-1 #43 날짜 개수
-rows2=len(Sheet2_ID) #322 ID개수
+cols2=len(df2.columns)-1 # 날짜 개수
+rows2=len(Sheet2_ID) # ID개수
 df_for_write_array=[[0 for j in range(rows2)] for i in range(cols2)]
 
 # 배열에 값을 추가하는 부분
