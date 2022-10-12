@@ -134,29 +134,29 @@ for i in range(len(df1)):
             df_for_write_array[index][j]=data[i][2]
 
 
-sum=[0 for i in range(len(df2))]
-sum_count=[0 for i in range(len(df2))]
-'''
-ID를 기준으로 평균을 내는 부분
-'''
-# 배열에 빈 칸을 열의 평균으로 채우는 부분
-for i in range(len(df2)):
-    for j in range(len(df2.columns)-1):
-        if(df_for_write_array[j][i]!=0):
-            sum_count[i]=sum_count[i]+1
-            sum[i]+=df_for_write_array[j][i]
-
-# 열의 값을 평균으로 만드는 부분
-for i in range(len(sum)):
-    if(sum_count[i]==0):
-        sum_count[i]=1
-    sum[i]=sum[i]/sum_count[i]
-
-# 배열에 평균의 값을 넣는 부분
-for i in range(len(df2)):
-    for j in range(len(df2.columns)-1):
-        if(df_for_write_array[j][i]==0):
-            df_for_write_array[j][i]=sum[i]
+# sum=[0 for i in range(len(df2))]
+# sum_count=[0 for i in range(len(df2))]
+# '''
+# ID를 기준으로 평균을 내는 부분
+# '''
+# # 배열에 빈 칸을 열의 평균으로 채우는 부분
+# for i in range(len(df2)):
+#     for j in range(len(df2.columns)-1):
+#         if(df_for_write_array[j][i]!=0):
+#             sum_count[i]=sum_count[i]+1
+#             sum[i]+=df_for_write_array[j][i]
+#
+# # 열의 값을 평균으로 만드는 부분
+# for i in range(len(sum)):
+#     if(sum_count[i]==0):
+#         sum_count[i]=1
+#     sum[i]=sum[i]/sum_count[i]
+#
+# # 배열에 평균의 값을 넣는 부분
+# for i in range(len(df2)):
+#     for j in range(len(df2.columns)-1):
+#         if(df_for_write_array[j][i]==0):
+#             df_for_write_array[j][i]=sum[i]
 
 #엑셀에 쓰는 부분
 df_for_write=pd.DataFrame(df_for_write_array)
