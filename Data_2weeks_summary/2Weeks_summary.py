@@ -12,7 +12,7 @@ df_height=pd.read_excel('Data_2Weeks.xlsx',sheet_name='Height')
 df_ID=pd.read_excel('ID.xlsx',sheet_name='ID')
 ID=df_ID['ID']
 
-Countdf=8 # 읽는 df 개수 + 1(이름)
+Countdf=9 # 읽는 df 개수 + 2(이름, 라벨)
 cols=len(df_ID)*(len(df_ID.columns)-1)
 
 df_for_write_array_temp=[[0 for j in range(Countdf)] for i in range(cols)]
@@ -34,16 +34,24 @@ def sum_columns(array,index1,index2):
         sum=sum+array[index1+i][index2]
     return sum/14
 
+def label(weight_1day, weight_14day):
+    if(weight_1day > weight_14day):
+        return -1
+    elif (weight_1day < weight_14day):
+        return 1
+    elif weight_14day==weight_1day:
+        return 0
 df_for_write_array=[[0 for j in range(Countdf)] for i in range(int(len(df_for_write_array_temp)/14))]
 for i in range(int(cols/14)): #0~1931
-    df_for_write_array[i][0]=df_for_write_array_temp[14*i][0]
-    df_for_write_array[i][1]=sum_columns(df_for_write_array_temp,14*i,1)
-    df_for_write_array[i][2]=sum_columns(df_for_write_array_temp,14*i,2)
-    df_for_write_array[i][3]=sum_columns(df_for_write_array_temp,14*i,3)
-    df_for_write_array[i][4]=sum_columns(df_for_write_array_temp,14*i,4)
-    df_for_write_array[i][5]=sum_columns(df_for_write_array_temp,14*i,5)
-    df_for_write_array[i][6]=sum_columns(df_for_write_array_temp,14*i,6)
-    df_for_write_array[i][7]=sum_columns(df_for_write_array_temp,14*i,7)
+    df_for_write_array[i][0]=df_for_write_array_temp[14*i][0] #ID
+    df_for_write_array[i][1]=sum_columns(df_for_write_array_temp,14*i,1) #weight
+    df_for_write_array[i][2]=sum_columns(df_for_write_array_temp,14*i,2) #BMI
+    df_for_write_array[i][3]=sum_columns(df_for_write_array_temp,14*i,3) #step
+    df_for_write_array[i][4]=sum_columns(df_for_write_array_temp,14*i,4) #burn
+    df_for_write_array[i][5]=sum_columns(df_for_write_array_temp,14*i,5) #eat
+    df_for_write_array[i][6]=sum_columns(df_for_write_array_temp,14*i,6) #sleep
+    df_for_write_array[i][7]=sum_columns(df_for_write_array_temp,14*i,7) #height
+    df_for_write_array[i][8]=label(df_for_write_array_temp[14*i][1],df_for_write_array_temp[14*i+13][1])
 
 #엑셀에 쓰는 부분
 df_for_write=pd.DataFrame(df_for_write_array)

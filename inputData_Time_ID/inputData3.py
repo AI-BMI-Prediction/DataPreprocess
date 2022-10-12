@@ -1,7 +1,7 @@
 import pandas as pd
 import openpyxl
 
-#전체 평균으로 채우는 코드
+#사이 평균으로 채우는 코드
 
 '''
 data.xlsx -> inputDataResult.xlsx 로 데이터를 채워주는 모듈입니다
@@ -135,30 +135,26 @@ for i in range(len(df1)):
             index=ComputeDate(data[i][1][0:10])
             df_for_write_array[index][j]=data[i][2]
 
+def fillarray(IDindex,index1, index2):
+    if(index1==index2):
+        for i in range(rows2):
+            df_for_write_array[IDindex][i]=df_for_write_array(index1)
+    else if():
 
-# sum=[0 for i in range(len(df2))]
-# sum_count=[0 for i in range(len(df2))]
-# '''
-# ID를 기준으로 평균을 내는 부분
-# '''
-# # 배열에 빈 칸을 열의 평균으로 채우는 부분
-# for i in range(len(df2)):
-#     for j in range(len(df2.columns)-1):
-#         if(df_for_write_array[j][i]!=0):
-#             sum_count[i]=sum_count[i]+1
-#             sum[i]+=df_for_write_array[j][i]
-#
-# # 열의 값을 평균으로 만드는 부분
-# for i in range(len(sum)):
-#     if(sum_count[i]==0):
-#         sum_count[i]=1
-#     sum[i]=sum[i]/sum_count[i]
-#
-# # 배열에 평균의 값을 넣는 부분
-# for i in range(len(df2)):
-#     for j in range(len(df2.columns)-1):
-#         if(df_for_write_array[j][i]==0):
-#             df_for_write_array[j][i]=sum[i]
+for i in range(rows2): #ID
+    showindex=[]
+    for j in range(cols2): #날짜
+        if (df_for_write_array[j][i]!=0):
+            showindex.append(j)
+    if len(showindex)==0:
+        continue
+    elif len(showindex)==1:
+        fillarray()
+    else:
+
+    print(showindex)
+
+    showindex.clear()
 
 #엑셀에 쓰는 부분
 df_for_write=pd.DataFrame(df_for_write_array)
