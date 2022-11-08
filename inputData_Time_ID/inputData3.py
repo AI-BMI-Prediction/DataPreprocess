@@ -135,25 +135,29 @@ for i in range(len(df1)):
             index=ComputeDate(data[i][1][0:10])
             df_for_write_array[index][j]=data[i][2]
 
-def fillarray(IDindex,index1, index2):
-    if(index1==index2):
-        for i in range(rows2):
-            df_for_write_array[IDindex][i]=df_for_write_array(index1)
-    else if():
-
 for i in range(rows2): #ID
     showindex=[]
     for j in range(cols2): #날짜
         if (df_for_write_array[j][i]!=0):
             showindex.append(j)
-    if len(showindex)==0:
-        continue
-    elif len(showindex)==1:
-        fillarray()
-    else:
+    count=0
+    if(len(showindex)!=0):
+        while(count<84):
+            if(count<showindex[0]):
+                df_for_write_array[count][i]=df_for_write_array[showindex[0]][i]
+            if (count > showindex[-1]):
+                df_for_write_array[count][i]=df_for_write_array[showindex[-1]][i]
+            count=count+1
 
-    print(showindex)
-
+        start = showindex[0]
+        end=0
+        count=start
+        while(count<83):
+            if(df_for_write_array[count][i]==0 and df_for_write_array[count+1][i]!=0) or (df_for_write_array[count][i]!=0 and df_for_write_array[count+1][i]==0):
+                end=count+1
+                for k in range(end-start):
+                    df_for_write_array[start+k][i]=(df_for_write_array[start][i]+df_for_write_array[end][i])/2
+            count = count + 1
     showindex.clear()
 
 #엑셀에 쓰는 부분
